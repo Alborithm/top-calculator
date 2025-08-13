@@ -18,14 +18,14 @@ function captureInputs(input) {
   if (operators.includes(input)) {
     if(operator === "") operator = input;
     else {
-      num1 = (999).toString();
+      num1 = operate(operator, num1, num2).toString();
       num2 = "";
       operator = input;
       updateDisplay(num1);
     }
   }
   else if(input === "=") {
-    num1 = (999).toString();
+    num1 = operate(operator, num1, num2).toString();
     num2 = "";
     operator = "";
     updateDisplay(num1);
@@ -69,17 +69,25 @@ function operate(operator, num1, num2) {
 }
 
 function add(a, b) {
+  a = Number(a);
+  b = Number(b);
   return a + b;
 }
 
 function subtract(a, b) {
+  a = Number(a);
+  b = Number(b);
   return a - b;
 }
 
 function multiply(a, b) {
+  a = Number(a);
+  b = Number(b);
   return a * b;
 }
 
 function divide(a, b) {
+  a = Number(a);
+  b = Number(b);
   return a / b;
 }
