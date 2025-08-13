@@ -25,10 +25,17 @@ function captureInputs(input) {
     }
   }
   else if(input === "=") {
-    num1 = operate(operator, num1, num2).toString();
-    num2 = "";
-    operator = "";
-    updateDisplay(num1);
+    if ( num1 === "" || num2 === "" || operator === "") {
+      updateDisplay("Error");
+      num1 = "";
+      num2 = "";
+      operator = "";
+    } else {
+      num1 = operate(operator, num1, num2).toString();
+      num2 = "";
+      operator = "";
+      updateDisplay(num1);
+    }
   }
   else if (input === "C") {
     num1 = "";
