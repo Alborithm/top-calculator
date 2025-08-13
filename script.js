@@ -17,36 +17,59 @@ for( let button of buttons) {
 }
 
 function captureInputs(input) {
+  // input is an operator
   if (operators.includes(input)) {
+    // if an operator is already selected it will do both the operation and set the operator
     if(calculator.operator === "") calculator.operator = input;
     else {
-      calculator.num1 = operate(operator, num1, num2).toString();
-      calculator.num2 = "";
-      calculator.operator = input;
-      updateDisplay(calculator.num1);
+      if( calculator.operator === "/" && calculator.num2 === "0") {
+        updateDisplay("Error");
+        calculator.num1 = "";
+        calculator.num2 = "";
+        calculator.operator = "";
+      } else {
+        processCalculation();
+        calculator.operator = input;
+      }
     }
   }
+  // input is equals
   else if(input === "=") {
-    if ( calculator.num2 === "" || calculator.operator === "") {
+    if( calculator.operator === "/" && calculator.num2 === "0") {
       updateDisplay("Error");
       calculator.num1 = "";
       calculator.num2 = "";
       calculator.operator = "";
     } else {
-      calculator.num1 = operate(calculator.operator, calculator.num1, calculator.num2).toString();
-      calculator.num2 = "";
-      calculator.operator = "";
-      updateDisplay(calculator.num1);
+      processCalculation();
     }
   }
+  // input is clear
   else if (input === "C") {
     calculator.num1 = "";
     calculator.num2 = "";
     calculator.operator = "";
     updateDisplay();
   }
+  // input is number
   else {
     updateNum(input);
+  }
+}
+
+function processCalculation() {
+  if ( calculator.num2 === "" || calculator.operator === "") {
+    // error logic
+    updateDisplay("Error");
+    calculator.num1 = "";
+    calculator.num2 = "";
+    calculator.operator = "";
+  } else {
+    // valid logic
+    calculator.num1 = operate(calculator.operator, calculator.num1, calculator.num2).toString();
+    calculator.num2 = "";
+    calculator.operator = "";
+    updateDisplay(calculator.num1);
   }
 }
 
