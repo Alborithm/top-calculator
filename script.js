@@ -14,6 +14,8 @@ display.textContent = calculator.num1;
 const operators = "+-x/";
 
 const dotButton = document.querySelector("#dot-button");
+const backButton = document.querySelector("#back-button");
+// backButton.disabled = true;
 
 for( let button of buttons) {
   const key = button.textContent;
@@ -65,6 +67,11 @@ function captureInputs(input) {
   // dot check
   if ( display.textContent.includes(".") && !(calculator.operator !== "" && calculator.num2 === "") && !isResultFlag) dotButton.disabled = true;
   else dotButton.disabled = false;
+
+  // backspace check
+  // ←
+  if (display.textContent == "" || (calculator.operator !== "" && calculator.num2 === "") || isResultFlag)  backButton.disabled = true;
+  else backButton.disabled = false;
 }
 
 function processCalculation() {
@@ -98,7 +105,11 @@ function updateNum(input) {
         if(input === "." && calculator.num1.includes(".")){
           return;
         } else {
-          calculator.num1 += input;
+          if(input === "←") {
+            calculator.num1 = calculator.num1.slice(0,-1);
+          } else {
+            calculator.num1 += input;
+          }
         }
       }
     }
@@ -111,7 +122,11 @@ function updateNum(input) {
       if(input === "." && calculator.num2.includes(".")){
         return;
       } else {
-        calculator.num2 += input;
+        if(input === "←") {
+          calculator.num2 = calculator.num2.slice(0,-1);
+        } else {
+          calculator.num2 += input;
+        }
       }
     }
     updateDisplay(calculator.num2);
