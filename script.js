@@ -1,11 +1,13 @@
-let num1 = "";
-let operator = "";
-let num2 = "";
+let calculator = {
+  num1: "0",
+  num2: "",
+  operator: "",
+}
 
 const buttons = document.querySelectorAll("button");
 const display = document.querySelector("p");
 
-display.textContent = "";
+display.textContent = calculator.num1;
 
 const operators = "+-x/";
 
@@ -16,41 +18,53 @@ for( let button of buttons) {
 
 function captureInputs(input) {
   if (operators.includes(input)) {
-    if(operator === "") operator = input;
+    if(calculator.operator === "") calculator.operator = input;
     else {
-      num1 = operate(operator, num1, num2).toString();
-      num2 = "";
-      operator = input;
-      updateDisplay(num1);
+      calculator.num1 = operate(operator, num1, num2).toString();
+      calculator.num2 = "";
+      calculator.operator = input;
+      updateDisplay(calculator.num1);
     }
   }
   else if(input === "=") {
-    if ( num1 === "" || num2 === "" || operator === "") {
+    if ( calculator.num2 === "" || calculator.operator === "") {
       updateDisplay("Error");
-      num1 = "";
-      num2 = "";
-      operator = "";
+      calculator.num1 = "";
+      calculator.num2 = "";
+      calculator.operator = "";
     } else {
-      num1 = operate(operator, num1, num2).toString();
-      num2 = "";
-      operator = "";
-      updateDisplay(num1);
+      calculator.num1 = operate(calculator.operator, calculator.num1, calculator.num2).toString();
+      calculator.num2 = "";
+      calculator.operator = "";
+      updateDisplay(calculator.num1);
     }
   }
   else if (input === "C") {
-    num1 = "";
-    num2 = "";
-    operator = "";
+    calculator.num1 = "";
+    calculator.num2 = "";
+    calculator.operator = "";
     updateDisplay();
   }
   else {
-    if (operator == "") {
-      num1 += input;
-      updateDisplay(num1);
+    updateNum(input);
+  }
+}
+
+function updateNum(input) {
+  if (calculator.operator == "") {
+    if (calculator.num1 == "0") {
+      calculator.num1 = input;
     } else {
-      num2 += input;
-      updateDisplay(num2);
+      calculator.num1 += input;
     }
+    updateDisplay(calculator.num1);
+  } else {
+    if (calculator.num2 == "0") {
+      calculator.num2 = input;
+    } else {
+      calculator.num2 += input;
+    }
+    updateDisplay(calculator.num2);
   }
 }
 
@@ -95,4 +109,11 @@ function divide(a, b) {
   a = Number(a);
   b = Number(b);
   return a / b;
+}
+
+function handleError(){
+  updateDisplay("Error");
+  num1 = "";
+  num2 = "";
+  operator = "";
 }
