@@ -13,6 +13,8 @@ display.textContent = calculator.num1;
 
 const operators = "+-x/";
 
+const dotButton = document.querySelector("#dot-button");
+
 for( let button of buttons) {
   const key = button.textContent;
   button.addEventListener("click", () => captureInputs(key));
@@ -59,6 +61,10 @@ function captureInputs(input) {
   else {
     updateNum(input);
   }
+
+  // dot check
+  if ( display.textContent.includes(".") && !(calculator.operator !== "" && calculator.num2 === "") && !isResultFlag) dotButton.disabled = true;
+  else dotButton.disabled = false;
 }
 
 function processCalculation() {
@@ -68,6 +74,7 @@ function processCalculation() {
     calculator.num1 = "";
     calculator.num2 = "";
     calculator.operator = "";
+    dotButton.disabled = true;
   } else {
     // valid logic
     let result = Math.round(operate(calculator.operator, calculator.num1, calculator.num2) * 1000) / 1000;
@@ -88,15 +95,24 @@ function updateNum(input) {
         calculator.num1 = input;
         isResultFlag = false;
       } else {
-        calculator.num1 += input;
+        if(input === "." && calculator.num1.includes(".")){
+          return;
+        } else {
+          calculator.num1 += input;
+        }
       }
     }
     updateDisplay(calculator.num1);
   } else {
+    isResultFlag = false;
     if (calculator.num2 == "0") {
       calculator.num2 = input;
     } else {
-      calculator.num2 += input;
+      if(input === "." && calculator.num2.includes(".")){
+        return;
+      } else {
+        calculator.num2 += input;
+      }
     }
     updateDisplay(calculator.num2);
   }
