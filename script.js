@@ -4,6 +4,8 @@ let calculator = {
   operator: "",
 }
 
+let isResultFlag = false;
+
 const buttons = document.querySelectorAll("button");
 const display = document.querySelector("p");
 
@@ -72,6 +74,7 @@ function processCalculation() {
     calculator.num2 = "";
     calculator.operator = "";
     updateDisplay(calculator.num1);
+    isResultFlag = true;
   }
 }
 
@@ -80,7 +83,12 @@ function updateNum(input) {
     if (calculator.num1 == "0") {
       calculator.num1 = input;
     } else {
-      calculator.num1 += input;
+      if (isResultFlag) {
+        calculator.num1 = input;
+        isResultFlag = false;
+      } else {
+        calculator.num1 += input;
+      }
     }
     updateDisplay(calculator.num1);
   } else {
