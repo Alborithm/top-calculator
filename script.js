@@ -1,11 +1,42 @@
-let num1;
-let operator;
-let num2;
+let num1 = "";
+let operator = "";
+let num2 = "";
 
 let buttons = document.querySelectorAll("button");
 
+const operators = "+-x/";
+
 for( let button of buttons) {
-  button.addEventListener("click", () => console.log("ouch!"));
+  const key = button.textContent;
+  button.addEventListener("click", () => captureInputs(key));
+}
+
+function captureInputs(input) {
+  if (operators.includes(input)) {
+    if(operator === "") operator = input;
+    else {
+      num1 = (999).toString();
+      num2 = "";
+      operator = input;
+    }
+  }
+  else if(input === "=") {
+    num1 = (999).toString();
+    num2 = "";
+    operator = "";
+  }
+  else {
+    if (operator == "") {
+      num1 += input;
+    } else {
+      num2 += input;
+    }
+  }
+
+  // update view
+  console.log(`num1: ${num1}`);
+  console.log(`operator: ${operator}`);
+  console.log(`num2: ${num2}`);
 }
 
 function operate(operator, num1, num2) {
