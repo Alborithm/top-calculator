@@ -30,6 +30,12 @@ function captureInputs(input) {
     operator = "";
     updateDisplay(num1);
   }
+  else if (input === "C") {
+    num1 = "";
+    num2 = "";
+    operator = "";
+    updateDisplay();
+  }
   else {
     if (operator == "") {
       num1 += input;
