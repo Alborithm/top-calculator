@@ -39,11 +39,6 @@ function captureInputs(input) {
       updateDisplay(num2);
     }
   }
-
-  // update view
-  console.log(`num1: ${num1}`);
-  console.log(`operator: ${operator}`);
-  console.log(`num2: ${num2}`);
 }
 
 function updateDisplay(num) {
