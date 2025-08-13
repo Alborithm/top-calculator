@@ -27,6 +27,8 @@ function captureInputs(input) {
         calculator.num1 = "";
         calculator.num2 = "";
         calculator.operator = "";
+      } else if ( calculator.num2 === "") {
+        calculator.operator = input;
       } else {
         processCalculation();
         calculator.operator = input;
