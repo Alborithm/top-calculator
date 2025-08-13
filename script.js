@@ -70,7 +70,8 @@ function processCalculation() {
     calculator.operator = "";
   } else {
     // valid logic
-    calculator.num1 = operate(calculator.operator, calculator.num1, calculator.num2).toString();
+    let result = Math.round(operate(calculator.operator, calculator.num1, calculator.num2) * 1000) / 1000;
+    calculator.num1 = result.toString();
     calculator.num2 = "";
     calculator.operator = "";
     updateDisplay(calculator.num1);
@@ -121,26 +122,26 @@ function operate(operator, num1, num2) {
 }
 
 function add(a, b) {
-  a = Number(a);
-  b = Number(b);
+  a = parseFloat(a);
+  b = parseFloat(b);
   return a + b;
 }
 
 function subtract(a, b) {
-  a = Number(a);
-  b = Number(b);
+  a = parseFloat(a);
+  b = parseFloat(b);
   return a - b;
 }
 
 function multiply(a, b) {
-  a = Number(a);
-  b = Number(b);
+  a = parseFloat(a);
+  b = parseFloat(b);
   return a * b;
 }
 
 function divide(a, b) {
-  a = Number(a);
-  b = Number(b);
+  a = parseFloat(a);
+  b = parseFloat(b);
   return a / b;
 }
 
