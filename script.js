@@ -2,7 +2,10 @@ let num1 = "";
 let operator = "";
 let num2 = "";
 
-let buttons = document.querySelectorAll("button");
+const buttons = document.querySelectorAll("button");
+const display = document.querySelector("p");
+
+display.textContent = "";
 
 const operators = "+-x/";
 
@@ -18,18 +21,22 @@ function captureInputs(input) {
       num1 = (999).toString();
       num2 = "";
       operator = input;
+      updateDisplay(num1);
     }
   }
   else if(input === "=") {
     num1 = (999).toString();
     num2 = "";
     operator = "";
+    updateDisplay(num1);
   }
   else {
     if (operator == "") {
       num1 += input;
+      updateDisplay(num1);
     } else {
       num2 += input;
+      updateDisplay(num2);
     }
   }
 
@@ -37,6 +44,10 @@ function captureInputs(input) {
   console.log(`num1: ${num1}`);
   console.log(`operator: ${operator}`);
   console.log(`num2: ${num2}`);
+}
+
+function updateDisplay(num) {
+  display.textContent = num;
 }
 
 function operate(operator, num1, num2) {
